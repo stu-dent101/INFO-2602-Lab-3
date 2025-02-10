@@ -24,7 +24,7 @@ app.config["JWT_COOKIE_SECURE"] = True
 app.config["JWT_SECRET_KEY"] = "super-secret"
 app.config["JWT_COOKIE_CSRF_PROTECT"] = False
 
-db.init_app(app)
+#db.init_app(app)
 app.app_context().push()
 CORS(app)
 
@@ -86,7 +86,6 @@ def get_stats_view():
   user = RegularUser.query.filter_by(username=get_jwt_identity()).first()
   return jsonify(num_todos=user.getNumTodos(),
                  num_done=user.getDoneTodos()), 200
-
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0', debug=True)

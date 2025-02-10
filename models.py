@@ -20,10 +20,11 @@ class Todo(db.Model):
 
   def __init__(self, text):
     self.text = text
-
+  
   def get_cat_list(self):
     return ', '.join([category.text for category in self.categories])
-
+  
+  
   def get_json(self):
     return {
         "id": self.id,
@@ -32,10 +33,11 @@ class Todo(db.Model):
         "user": self.user.username,
         "categories": self.get_cat_list()
     }
-
+  
+  
   def __repr__(self):
     return f'<Todo: {self.id} | {self.user.username} | {self.text} | { "done" if self.done else "not done" } | categories [{self.get_cat_list()}]>'
-
+  
 
 class TodoCategory(db.Model):
   __tablename__ = 'todo_category'
@@ -73,7 +75,6 @@ class Category(db.Model):
 
 
 class User(db.Model):
-
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(80), unique=True, nullable=False)
   email = db.Column(db.String(120), unique=True, nullable=False)
@@ -171,6 +172,7 @@ class RegularUser(User):
       db.session.commit()
     return category
 
+  
   def getNumTodos(self):
     return len(self.todos)
 
@@ -180,10 +182,15 @@ class RegularUser(User):
       if todo.done:
         numDone += 1
     return numDone
+  
 
   def __repr__(self):
     return f'<RegularUser {self.id} : {self.username} - {self.email}>'
 
 
 class Admin(User):
+  _abstract__ = True
+  __mapper_args__ = {
+      'polymorphic_identity': 'admin user',
+  }
   pass
