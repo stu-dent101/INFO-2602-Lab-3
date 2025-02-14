@@ -81,7 +81,7 @@ class User(db.Model):
   password = db.Column(db.String(120), nullable=False)
   type = db.Column(db.String(50))
   __mapper_args__ = {
-      'polymorphic_identity': 'user',
+      #'polymorphic_identity': 'user',
       'polymorphic_on': type
   }
 

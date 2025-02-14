@@ -43,7 +43,7 @@ def login_required(required_class):
         return f(*args, **kwargs)
       return decorated_function
   return wrapper
-
+'''
 def login_user(username, password):
   user = User.query.filter_by(username=username).first()
   if user and user.check_password(password):
@@ -52,6 +52,7 @@ def login_user(username, password):
     set_access_cookies(response, token)
     return response
   return jsonify(message="Invalid username or password"), 401
+'''
 
 @app.route('/')
 def index():
