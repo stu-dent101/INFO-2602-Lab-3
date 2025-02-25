@@ -71,10 +71,10 @@ def login_user(username, password):
 # Task 3.2 Here
 @app.route('/login', methods=['POST'])
 def user_login_view():
-  data = request.json
+  data = request.json #postman
   response = login_user(data['username'], data['password'])
   if not response:
-    return jsonify(message='bad username or password given'), 403
+    return jsonify(message='bad username or password given'), 403 #postman give a 401
   return response
 
 
@@ -160,7 +160,7 @@ def edit_todo_view(id):
   return jsonify(message=f"todo updated to '{data['text']}'!"), 200
 
 # Task 5.5 Here DELETE /todos/id
-@app.route('/todos/<int:id>', methods=['DELETE'])
+@app.route('/todos/<int:id>', methods=['DELETE']) #not getting to delete todo in postman
 @jwt_required()
 def delete_todo_view(id):
   user = RegularUser.query.filter_by(username=get_jwt_identity()).first()
