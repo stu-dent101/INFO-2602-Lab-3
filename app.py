@@ -43,16 +43,6 @@ def login_required(required_class):
         return f(*args, **kwargs)
       return decorated_function
   return wrapper
-'''
-def login_user(username, password):
-  user = User.query.filter_by(username=username).first()
-  if user and user.check_password(password):
-    token = create_access_token(identity=username)
-    response = jsonify(access_token=token)
-    set_access_cookies(response, token)
-    return response
-  return jsonify(message="Invalid username or password"), 401
-'''
 
 @app.route('/')
 def index():
@@ -74,7 +64,7 @@ def user_login_view():
   data = request.json #postman
   response = login_user(data['username'], data['password'])
   if not response:
-    return jsonify(message='bad username or password given'), 403 #postman give a 401
+    return jsonify(message='bad username or password given'), 403 #postman gave 401
   return response
 
 

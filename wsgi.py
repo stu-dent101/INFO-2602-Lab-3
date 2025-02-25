@@ -24,7 +24,7 @@ def initialize():
       new_todo = Todo(text=row['text'])  #create object
       #update fields based on records
       #new_todo.done = True if row['done'] == 'true' else False
-      new_todo.done = bool(row['done'])
+      new_todo.done = bool(row['done']) #the database needs the boolean value
       new_todo.user_id = int(row['user_id'])
       db.session.add(new_todo)  #queue changes for saving
     db.session.commit()
